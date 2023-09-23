@@ -23,6 +23,7 @@ RUN apt update \
     && apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
+
 # install debs error if combine together
 RUN apt update \
     && apt install -y --no-install-recommends --allow-unauthenticated \
@@ -42,8 +43,13 @@ RUN apt update \
 
 RUN apt update \
     && apt install -y --no-install-recommends --allow-unauthenticated \
-        lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme \
-    && apt autoclean -y \
+        lxde gtk2-engines-murrine gnome-themes-standard gtk2-engines-pixbuf gtk2-engines-murrine arc-theme
+
+RUN dpkg --add-architecture i386 \
+    && apt update \
+    && apt install -y wine32
+
+RUN apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
